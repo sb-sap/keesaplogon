@@ -144,7 +144,7 @@
     <value>..\Resources\KeeSAPLogon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="URLVersionCheck" xml:space="preserve">
-    <value>http://markograf.de/KeePassPlugins/keepass_plugin.ver</value>
+    <value>https://sourceforge.net/p/keesaplogon/code/HEAD/tree/releases/keepass_plugin.ver?format=raw</value>
     <comment>URL for Version Check</comment>
   </data>
 </root>
