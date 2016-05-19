@@ -32,7 +32,9 @@ namespace KeeSAPLogon
         private const string IconSrcWinImg = "%windir%\\system32\\imageres.dll";
 
 
-
+        //---------------------------------------------------------------------------------------------------
+        // Public Static Methods
+        //---------------------------------------------------------------------------------------------------
         public static Icon GetOpenFolderIcon()
         {
             Icon i = IconExtractor.Extract(GetSourceLocation(IconSource.Shell), 4, true);

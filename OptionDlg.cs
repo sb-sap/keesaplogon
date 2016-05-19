@@ -18,6 +18,9 @@ namespace KeeSAPLogon
         private readonly SAPLogonOpt m_config = null;
 
 
+        //---------------------------------------------------------------------------------------------------
+        // Class Constructors
+        //---------------------------------------------------------------------------------------------------
         public OptionDlg(MainForm form, SAPLogonOpt config)
         {
             InitializeComponent();
@@ -36,11 +39,22 @@ namespace KeeSAPLogon
         }
 
 
+        //---------------------------------------------------------------------------------------------------
+        // Class Destructor
+        //---------------------------------------------------------------------------------------------------
         ~OptionDlg()
         {
             this.tbDefaultLng.KeyPress -= new KeyPressEventHandler(this.tbDefaultLng_KeyPress);
         }
 
+
+        //---------------------------------------------------------------------------------------------------
+        // Eventhandler
+        //---------------------------------------------------------------------------------------------------
+        private void OptionDlg_Shown(object sender, EventArgs e)
+        {
+            UpdatePathMsg();
+        }
 
         private void tbDefaultLng_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -58,7 +72,7 @@ namespace KeeSAPLogon
 
         private void tbSAPGUIPath_TextChanged(object sender, EventArgs e)
         {
-            CheckSAPGUIPath(tbSAPGUIPath.Text);
+            UpdatePathMsg();
         }
 
         private void btFolderDlg_Click(object sender, EventArgs e)
@@ -66,7 +80,7 @@ namespace KeeSAPLogon
             if (fbDlgGUIPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.tbSAPGUIPath.Text = fbDlgGUIPath.SelectedPath;
-                CheckSAPGUIPath(fbDlgGUIPath.SelectedPath);
+                UpdatePathMsg();
             }
         }
 
@@ -78,10 +92,9 @@ namespace KeeSAPLogon
                 return;
             }
 
-            if (!CheckSAPGUIPath(this.tbSAPGUIPath.Text))
+            if (!SAPLogonHandler.ValidateSAPGUIPath(this.tbSAPGUIPath.Text))
             {
                 MessageBox.Show(Translatable.ErrorMsgSAPGUIPath, KeeSAPLogonExt.PlugInName + " settings error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
 
             this.DialogResult = DialogResult.OK;
@@ -95,27 +108,38 @@ namespace KeeSAPLogon
             this.Close();
         }
 
-        private bool CheckSAPGUIPath(string path)
+        //---------------------------------------------------------------------------------------------------
+        // Private Methods
+        //---------------------------------------------------------------------------------------------------
+        private void UpdatePathMsg()
         {
             string msg = "";
 
-            if (SAPLogonHandler.ValidateSAPGUIPath(path))
-            {
-                this.tbSAPGUIPath.Text = path;
-
-                msg = Translatable.ValidationInfoPos;
-                msg = msg.Replace("%EXE_NAME%", SAPLogonHandler.SAPGUIShortCutEXE);
-                this.tbPathValidInfo.Text = msg;
-
-                return true;
-            }
-            else
+            if (!SAPLogonHandler.ValidateSAPGUIPath(this.tbSAPGUIPath.Text))
             {
                 msg = Translatable.ValidationInfoNeg;
                 msg = msg.Replace("%EXE_NAME%", SAPLogonHandler.SAPGUIShortCutEXE);
                 this.tbPathValidInfo.Text = msg;
+                return;
+            }
 
-                return false;
+            if (m_config != null)
+            {
+                if (m_config.AutoDetected)
+                {
+                    msg = Translatable.ValidationInfoAuto;
+                    msg = msg.Replace("%EXE_NAME%", SAPLogonHandler.SAPGUIShortCutEXE);
+                    this.tbPathValidInfo.Text = msg;
+                    return;
+                }
+            }
+
+            if (SAPLogonHandler.ValidateSAPGUIPath(this.tbSAPGUIPath.Text))
+            {
+                msg = Translatable.ValidationInfoPos;
+                msg = msg.Replace("%EXE_NAME%", SAPLogonHandler.SAPGUIShortCutEXE);
+                this.tbPathValidInfo.Text = msg;
+                return;
             }
 
         }
@@ -156,6 +180,7 @@ namespace KeeSAPLogon
                 m_form.RefreshEntriesList();
             }
         }
+
 
     }
 }

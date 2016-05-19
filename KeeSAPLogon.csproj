@@ -99,8 +99,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>U:\Apps\KeePass\KeePass.exe --plgx-create $(SolutionDir)$(TargetName) --plgx-prereq-kp:2.29 --plgx-prereq-net:4.0 --plgx-prereq-os:Windows
+
+copy /Y "$(SolutionDir)\$(TargetName).plgx" "U:\Apps\KeePass\plugins\$(TargetName).plgx"
+
+del "$(SolutionDir)\$(TargetName).plgx"
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

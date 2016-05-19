@@ -6,7 +6,9 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
+using KeePass.Plugins;
 using KeePass.UI;
+using KeePass.Util.Spr;
 using KeePassLib;
 using KeePassLib.Security;
 
@@ -18,22 +20,38 @@ namespace KeeSAPLogon
     {
         private static string[] m_vColNames = new string[] { Translatable.ColumnName };
 
+        private readonly IPluginHost m_host = null;
         private readonly SAPLogonOpt m_config = null;
 
 
-
-        //Constructor
-        public LogonColumnProvider(SAPLogonOpt config)
+        //---------------------------------------------------------------------------------------------------
+        // Class Constructors
+        //---------------------------------------------------------------------------------------------------
+        public LogonColumnProvider(IPluginHost host, SAPLogonOpt config)
         {
-            if (config == null)
+            if (host == null)
             {
-                Debug.Assert((config == null), "No option handler defined.");
-                throw new ApplicationException("No option handler defined.");
+                string msg = "No plugin host defined.";
+                Debug.Assert((host == null), msg);
+                throw new ApplicationException(msg);
             }
 
+            if (config == null)
+            {
+                string msg = "No option handler defined.";
+                Debug.Assert((config == null), msg);
+                throw new ApplicationException(msg);
+            }
+
+            m_host = host;
             m_config = config;
         }
 
+
+        //---------------------------------------------------------------------------------------------------
+        // Interface Implementation: KeePass.UI.ColumnProvider
+        //---------------------------------------------------------------------------------------------------
+        #region KeePass.UI.ColumnProvider implementation
 
         public override string[] ColumnNames
         {
@@ -52,15 +70,15 @@ namespace KeeSAPLogon
             if (strColumnName == null)
             {
                 Debug.Assert(false);
-                return string.Empty;
+                return String.Empty;
             }
 
-            if (strColumnName != m_vColNames[0]) return string.Empty;
+            if (strColumnName != m_vColNames[0]) return String.Empty;
 
             if (pe == null)
             {
                 Debug.Assert(false);
-                return string.Empty;
+                return String.Empty;
             }
 
 
@@ -100,8 +118,8 @@ namespace KeeSAPLogon
             {
                 lc.ExtendWithDefaults(m_config.DefaultLng, m_config.DefaultTx);
 
-                ProtectedString pUser = pe.Strings.GetSafe(PwDefs.UserNameField);
-                ProtectedString pPw = pe.Strings.GetSafe(PwDefs.PasswordField);
+                ProtectedString pUser = DerefValue(PwDefs.UserNameField, pe);
+                ProtectedString pPw = DerefValue(PwDefs.PasswordField, pe);
 
                 SAPLogonHandler.SAPGUIPath = m_config.SAPGUIPath;
                 SAPLogonHandler.DoLogon(lc, pUser, pPw);
@@ -121,6 +139,8 @@ namespace KeeSAPLogon
 
             return SAPLogonHandler.ValidateSAPGUIPath(m_config.SAPGUIPath);
         }
+
+        #endregion
 
 
         //---------------------------------------------------------------------------------------------------
@@ -198,6 +218,41 @@ namespace KeeSAPLogon
             }
 
             return null;
+        }
+
+        private ProtectedString DerefValue(string fieldName, PwEntry pe)
+        {
+            ProtectedString ps = new ProtectedString();
+
+            string decrypted = pe.Strings.ReadSafe(fieldName);
+            if (decrypted.IndexOf('{') >= 0)
+            {
+                if (m_host == null)
+                {
+                    Debug.Assert(false); return ps;
+                }
+
+                PwDatabase pd = null;
+                try
+                {
+                    pd = m_host.MainWindow.DocumentManager.SafeFindContainerOf(pe);
+                }
+                catch (Exception)
+                {
+                    Debug.Assert(false);
+                }
+
+                SprContext ctx = new SprContext(pe, pd, (SprCompileFlags.Deref | SprCompileFlags.TextTransforms), false, false);
+                ps = new ProtectedString(true, (SprEngine.Compile(decrypted, ctx)));
+                decrypted = "";
+                return ps;
+            }
+            else
+            {
+                ps = pe.Strings.GetSafe(fieldName);
+            }
+
+            return ps;
         }
 
     }

@@ -16,6 +16,21 @@ namespace KeeSAPLogon
         private string m_SAPTransaction;
 
 
+        //---------------------------------------------------------------------------------------------------
+        // Class Constructors
+        //---------------------------------------------------------------------------------------------------
+        public LogonColumn(string ID, string Client, string Language, string Transaction)
+        {
+            m_SAPID = ID;
+            m_SAPClient = Client;
+            m_SAPLanguage = Language;
+            m_SAPTransaction = Transaction;
+        }
+        
+
+        //---------------------------------------------------------------------------------------------------
+        // Public Methods
+        //---------------------------------------------------------------------------------------------------
         public string SAPID
         {
             get { return ReturnValidValue(m_SAPID); }
@@ -34,15 +49,6 @@ namespace KeeSAPLogon
         public string SAPTransaction
         {
             get { return ReturnValidValue(m_SAPTransaction); }
-        }
-
-
-        public LogonColumn(string ID, string Client, string Language, string Transaction)
-        {
-            m_SAPID = ID;
-            m_SAPClient = Client;
-            m_SAPLanguage = Language;
-            m_SAPTransaction = Transaction;
         }
 
         public bool HasSAPID()

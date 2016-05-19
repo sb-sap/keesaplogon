@@ -255,6 +255,7 @@
             this.Controls.Add(this.grbDisplayColLogon);
             this.Name = "OptionDlg";
             this.Text = "OptionDlg";
+            this.Shown += new System.EventHandler(this.OptionDlg_Shown);
             this.grbDisplayColLogon.ResumeLayout(false);
             this.grbDisplayColLogon.PerformLayout();
             this.grbDefaults.ResumeLayout(false);
