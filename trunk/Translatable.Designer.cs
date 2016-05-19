@@ -115,7 +115,7 @@ namespace KeeSAPLogon {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path to SAP GUI is not valid..
+        ///   Looks up a localized string similar to Path to SAP GUI is not valid. Plugin runs auto detection..
         /// </summary>
         internal static string ErrorMsgSAPGUIPath {
             get {
@@ -129,6 +129,15 @@ namespace KeeSAPLogon {
         internal static string TitelOptionDlg {
             get {
                 return ResourceManager.GetString("TitelOptionDlg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detected %EXE_NAME% - configuration is valid..
+        /// </summary>
+        internal static string ValidationInfoAuto {
+            get {
+                return ResourceManager.GetString("ValidationInfoAuto", resourceCulture);
             }
         }
         

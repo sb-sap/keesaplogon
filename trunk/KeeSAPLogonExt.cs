@@ -18,12 +18,21 @@ namespace KeeSAPLogon
         public const string PlugInName = "KeeSAPLogon";
 
         private static IPluginHost m_host = null;
-
-        private bool m_disposed = false;
-
         private ToolStripMenuItem m_tsmiSetDlg = null;
         private LogonColumnProvider m_prov = null;
         private SAPLogonOpt m_provOpt = null;
+        private bool m_disposed = false;
+
+
+        //---------------------------------------------------------------------------------------------------
+        // Class Destructor
+        //---------------------------------------------------------------------------------------------------
+        // Use C# destructor syntax for finalization code.
+        ~KeeSAPLogonExt()
+        {
+            // Simply call Dispose(false).
+            Dispose(false);
+        }
 
 
         //---------------------------------------------------------------------------------------------------
@@ -33,9 +42,7 @@ namespace KeeSAPLogon
 
         public override Image SmallIcon { get { return KeeSAPLogon.Properties.Resources.KeeSAPLogonIcon_png; } }
 
-
         public override string UpdateUrl { get { return KeeSAPLogon.Properties.Resources.URLVersionCheck; } }
-
 
         public override bool Initialize(IPluginHost host)
         {
@@ -46,7 +53,7 @@ namespace KeeSAPLogon
             if (host != null)
             {
                 m_provOpt = new SAPLogonOpt(host.CustomConfig);
-                m_prov = new LogonColumnProvider(m_provOpt);
+                m_prov = new LogonColumnProvider(host, m_provOpt);
                 m_host.ColumnProviderPool.Add(m_prov);
 
 
@@ -107,16 +114,6 @@ namespace KeeSAPLogon
 
         #endregion
 
-
-        //---------------------------------------------------------------------------------------------------
-        // Class Destructor
-        //---------------------------------------------------------------------------------------------------
-        // Use C# destructor syntax for finalization code.
-        ~KeeSAPLogonExt()
-        {
-            // Simply call Dispose(false).
-            Dispose(false);
-        }
 
 
         //---------------------------------------------------------------------------------------------------

@@ -8,11 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace KeeSAPLogon.Properties
-{
+namespace KeeSAPLogon.Properties {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,139 +22,115 @@ namespace KeeSAPLogon.Properties
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if (object.ReferenceEquals(resourceMan, null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("KeeSAPLogon.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CleanIcon_png
-        {
-            get
-            {
+        internal static System.Drawing.Bitmap CleanIcon_png {
+            get {
                 object obj = ResourceManager.GetObject("CleanIcon_png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to SAP Language.
         /// </summary>
-        internal static string FieldKeyLanguage
-        {
-            get
-            {
+        internal static string FieldKeyLanguage {
+            get {
                 return ResourceManager.GetString("FieldKeyLanguage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to SAP Client.
         /// </summary>
-        internal static string FieldKeySAPClient
-        {
-            get
-            {
+        internal static string FieldKeySAPClient {
+            get {
                 return ResourceManager.GetString("FieldKeySAPClient", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to SAP ID.
         /// </summary>
-        internal static string FieldKeySAPID
-        {
-            get
-            {
+        internal static string FieldKeySAPID {
+            get {
                 return ResourceManager.GetString("FieldKeySAPID", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to SAP Transaction.
         /// </summary>
-        internal static string FieldKeyTransaction
-        {
-            get
-            {
+        internal static string FieldKeyTransaction {
+            get {
                 return ResourceManager.GetString("FieldKeyTransaction", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon KeeSAPLogon
-        {
-            get
-            {
+        internal static System.Drawing.Icon KeeSAPLogon {
+            get {
                 object obj = ResourceManager.GetObject("KeeSAPLogon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap KeeSAPLogonIcon_png
-        {
-            get
-            {
+        internal static System.Drawing.Bitmap KeeSAPLogonIcon_png {
+            get {
                 object obj = ResourceManager.GetObject("KeeSAPLogonIcon_png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to http://markograf.de/KeePassPlugins/keepass_plugin.ver.
+        ///   Looks up a localized string similar to https://sourceforge.net/p/keesaplogon/code/HEAD/tree/releases/keepass_plugin.ver?format=raw.
         /// </summary>
-        internal static string URLVersionCheck
-        {
-            get
-            {
+        internal static string URLVersionCheck {
+            get {
                 return ResourceManager.GetString("URLVersionCheck", resourceCulture);
             }
         }

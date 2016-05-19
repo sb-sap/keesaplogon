@@ -142,12 +142,16 @@
     <comment>Shows error message when no display option was selected.</comment>
   </data>
   <data name="ErrorMsgSAPGUIPath" xml:space="preserve">
-    <value>Path to SAP GUI is not valid.</value>
+    <value>Path to SAP GUI is not valid. Plugin runs auto detection.</value>
     <comment>Shows error message when path to SAPGUI is not valid.</comment>
   </data>
   <data name="TitelOptionDlg" xml:space="preserve">
     <value>SAP Logon settings</value>
     <comment>Titel of options dialog</comment>
+  </data>
+  <data name="ValidationInfoAuto" xml:space="preserve">
+    <value>Detected %EXE_NAME% - configuration is valid.</value>
+    <comment>Validation info for path to SAPGUI - auto detection was successful</comment>
   </data>
   <data name="ValidationInfoNeg" xml:space="preserve">
     <value>Did not found %EXE_NAME% - configuration is not valid.</value>

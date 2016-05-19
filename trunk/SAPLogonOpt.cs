@@ -20,16 +20,33 @@ namespace KeeSAPLogon
         private const string flagDefaultTx = KeeSAPLogonExt.PlugInName + "_" + "DefaultTx";
         private const string flagSAPGUIPath = KeeSAPLogonExt.PlugInName + "_" + "SAPGUIPath";
 
-        readonly AceCustomConfig m_config = null;
+        private readonly AceCustomConfig m_config = null;
+
+        private bool m_autoDetected = false;
 
 
 
+        //---------------------------------------------------------------------------------------------------
+        // Class Constructors
+        //---------------------------------------------------------------------------------------------------
         public SAPLogonOpt(AceCustomConfig config)
         {
             m_config = config;
         }
 
 
+        //---------------------------------------------------------------------------------------------------
+        // Properties
+        //---------------------------------------------------------------------------------------------------
+        public bool AutoDetected
+        {
+            get { return m_autoDetected; }
+        }
+
+
+        //---------------------------------------------------------------------------------------------------
+        // Public Methods
+        //---------------------------------------------------------------------------------------------------
         public bool DisSystemID
         {
             get { return m_config.GetBool(flagDisSystemID, true); }
@@ -68,7 +85,29 @@ namespace KeeSAPLogon
 
         public string SAPGUIPath
         {
-            get { return m_config.GetString(flagSAPGUIPath, ""); }
+            get
+            {
+                //Try at first KeePass config
+                string tmp = m_config.GetString(flagSAPGUIPath, "");
+                if (SAPLogonHandler.ValidateSAPGUIPath(tmp))
+                {
+                    m_autoDetected = false;
+                    return tmp;
+                }
+
+                //Try auto detection
+                tmp = SAPLogonHandler.DetectSAPGUIPath();
+                if (SAPLogonHandler.ValidateSAPGUIPath(tmp))
+                {
+                    m_autoDetected = true;
+                    return tmp;
+                }
+
+                //Get indirectly the default value
+                m_autoDetected = false;
+                return (m_config.GetString(flagSAPGUIPath, ""));
+            }
+
             set { m_config.SetString(flagSAPGUIPath, value); }
         }
 
